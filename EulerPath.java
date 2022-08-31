@@ -1,31 +1,31 @@
 import java.util.*;
 
 class EulerPath {
-    Map<String, List<String>> graph = new HashMap<>(); // graph as adjacency list
-    Set<String> nodes = new HashSet<>(); // just set of nodes for convenience
+    Map<String, List<String>> graph = new HashMap<>(); // граф в виде списка смежности
+    Set<String> nodes = new HashSet<>(); // отдельный список нодов, для удобства
 
-    List<String> result = new ArrayList<>(); // result words' sequence storage
-    List<String> path = new ArrayList<>(); // result as Euler's path storage
-    Stack<String> vertexStack = new Stack<>(); // vertices backtracking stack
-    Stack<String> edgeStack = new Stack<>(); // edges backtracking stack
+    List<String> result = new ArrayList<>(); // массив для результатов
+    List<String> path = new ArrayList<>(); // массив для хранения эйлерова пути (цикла)
+    Stack<String> vertexStack = new Stack<>(); // стек нодов
+    Stack<String> edgeStack = new Stack<>(); // стек ребер (самих слов)
 
     /*
-    Two hepler methods just to add syntax sugar
+    Два вспомогательных метода, для лучшей читаемости кода
      */
-    static String firstLetterOf(String word) {
+    String firstLetterOf(String word) {
         return word.substring(0, 1).toLowerCase();
     }
 
-    static String lastLetterOf(String word) {
+    String lastLetterOf(String word) {
         return word.substring(word.length() - 1).toLowerCase();
     }
 
     /*
-    We initialize set of nodes and graph itself using input word sequence
-    in parametrized class constructor
+    Будем инициализировать граф и список нодов 
+    с помощью параметризованного конструктора
 
      */
-    public EulerPath(String[] inputSequence) {
+    EulerPath(String[] inputSequence) {
         for (String word : inputSequence) {
             nodes.add(firstLetterOf(word));
             nodes.add(lastLetterOf(word));
@@ -42,8 +42,8 @@ class EulerPath {
     }
 
     /*
-    Helper method to define start node for DFS algorithm
-    Returns node or, if nonexistent, "any" string
+    Вспомогательный метод для определения стартовой ноды для основного DFS
+    Если у нас эйлеров цикл, и можно начинать с любой ноды, возвращаем строку "any"
      */
     String getStartNode(String[] inputSequence) {
         Map<String, Integer[]> counter = new HashMap<>();
@@ -69,7 +69,9 @@ class EulerPath {
         }
         return "any";
     }
-
+    /*
+    Модифицированный DFS, основной алгоритм
+    */
     void findEulerPath(String startNode){
         if(startNode.equals("any")) startNode = nodes.toArray(new String[0])[0];
         vertexStack.push(startNode);
@@ -93,10 +95,10 @@ class EulerPath {
         //String[] inputSequence = {"Адлер", "Рыбинск", "Курган", "Нарьян-Мар", "Рим", "Мурманск", "Константинополь"};
         //String[] inputSequence = {"alpha", "elephant", "kick", "linea", "android", "eels", "kill", "sum", "eye", "spud", "drink", "even", "bee", "dad", "num", "tea", "test", "sims", "apple", "mob", "mate"};
         String[] inputSequence = {"test", "sum", "num", "kill", "sims", "mate", "even", "dad", "android", "eye", "kick", "elephant", "drink", "alpha", "eels", "bee", "mob", "linea", "tea", "apple"};
-        EulerPath solution = new EulerPath(inputSequence);
-        String startNode = solution.getStartNode(inputSequence);
-        solution.findEulerPath(startNode);
-        Collections.reverse(solution.result);
+        EulerPath solution = new EulerPath(inputSequence); // создаем и инициализируем объект, содержащий граф 
+        String startNode = solution.getStartNode(inputSequence); // находим стартовую ноду
+        solution.findEulerPath(startNode); // вычисляем решение
+        Collections.reverse(solution.result); // массив результатов необходимо инвертировать
         System.out.println(solution.result);
     }
 }
