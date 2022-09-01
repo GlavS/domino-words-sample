@@ -36,8 +36,7 @@ class EulerPath {
         for (String word : inputSequence) {
             String node = firstLetterOf(word);
             List<String> tmp = graph.get(node);
-            tmp.add(word);
-            graph.put(node, tmp);
+            tmp.add(word);            
         }
     }
 
@@ -55,12 +54,9 @@ class EulerPath {
             String fl = firstLetterOf(word);
             String ll = lastLetterOf(word);
             Integer[] tmp = counter.get(fl);
-            tmp[0]++;
-            counter.put(fl, tmp);
+            tmp[0]++;            
             tmp = counter.get(ll);
             tmp[1]++;
-            counter.put(ll, tmp);
-
         }
         for (String node : counter.keySet()) {
             if (counter.get(node)[0] > counter.get(node)[1]) {
