@@ -18,3 +18,5 @@ String[] inputSequence = {"alpha", "elephant", "kick", "linea", "android", "eels
 
 String[] inputSequence = {"test", "sum", "num", "kill", "sims", "mate", "even", "dad", "android", "eye", "kick", "elephant", "drink", "alpha", "eels", "bee", "mob", "linea", "tea", "apple"}; //Содержит эйлеров цикл
 ```
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
